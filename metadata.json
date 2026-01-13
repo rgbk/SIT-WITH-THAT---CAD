@@ -1,0 +1,5 @@
+{
+  "name": "Exhibition Catalog Visualizer",
+  "description": "A 3D configurator for a GF Smith Colorplan exhibition catalog with customizable foil blocking, typography, and paper stock.",
+  "requestFramePermissions": []
+}
