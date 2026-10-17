@@ -18,3 +18,9 @@ View your app in AI Studio: https://ai.studio/apps/drive/15y4B2tJj3YENwAgI9GmDNf
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## GitHub Pages
+
+Node.js 22: run `npm ci`, then `npm run build`. Preview with `npm run preview`.
+The deploy workflow publishes only `dist/` on pushes to `main`.
+Pages source must be GitHub Actions. The Vite base is `/SIT-WITH-THAT---CAD/`.
