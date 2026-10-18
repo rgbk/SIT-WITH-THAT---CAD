@@ -24,3 +24,11 @@ View your app in AI Studio: https://ai.studio/apps/drive/15y4B2tJj3YENwAgI9GmDNf
 Node.js 22: run `npm ci`, then `npm run build`. Preview with `npm run preview`.
 The deploy workflow publishes only `dist/` on pushes to `main`.
 Pages source must be GitHub Actions. The Vite base is `/SIT-WITH-THAT---CAD/`.
+
+## Foil preview
+
+The initial view shows the closed printed front. Front view resets the camera;
+Foil detail brings the type closer. Deboss impression controls a recessed bump
+map on the paper surface (a visual approximation, not die-cut geometry).
+Foil reflectance, roughness and impression use the same live text mask.
+Rectangular studio lights create reflections that change as the cover rotates.

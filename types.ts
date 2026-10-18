@@ -11,6 +11,7 @@ export type FontConfig = {
 
 export type AppState = {
   isOpen: boolean;
+  debossDepth: number;
   showDebug: boolean;
   paperColor: string;
   foilColor: string;

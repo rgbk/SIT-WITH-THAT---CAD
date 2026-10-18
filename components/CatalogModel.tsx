@@ -3,9 +3,9 @@ import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useSpring, animated } from '@react-spring/three';
 import { Edges } from '@react-three/drei';
-import { AppState } from '../types'; 
+import { AppState } from '../types';
 import FoilText from './FoilText';
-import { DIMS as DIMENSIONS } from '../constants'; 
+import { DIMS as DIMENSIONS } from '../constants';
 
 interface CatalogModelProps {
   state: AppState;
@@ -44,38 +44,40 @@ const CatalogModel: React.FC<CatalogModelProps> = ({ state }) => {
     const w = beltW;
     const h = beltH;
     const r = h / 2; // Full round end
-    
+
     // Draw belt shape from pivot (right side) extending left to -w
     shape.moveTo(0, h/2);
     shape.lineTo(-(w - r), h/2);
     shape.absarc(-(w - r), 0, r, Math.PI / 2, Math.PI * 1.5, false);
     shape.lineTo(0, -h/2);
     shape.lineTo(0, h/2);
-    
+
     return shape;
   }, []);
 
   const beltGeometry = useMemo(() => new THREE.ExtrudeGeometry(beltShape, { depth: paperThickness, bevelEnabled: false }), [beltShape]);
 
   return (
-    <group ref={group} rotation={[-Math.PI / 4, 0, 0]}> 
-      
+    <group ref={group} rotation={[-0.12, -0.18, 0]}>
+
       {/* --- BACK PANEL (ROOT) --- */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[backW, backH, paperThickness]} />
         <PaperMaterial color={state.paperColor} />
         <DebugEdges active={state.showDebug} />
-        
+
         {/* Back Content - Moved to Outside Face (-Z) and Rotated to face out */}
         <FoilText
            text={state.backText}
            config={state.fontConfig}
            foilType={state.foilType}
            foilColor={state.foilColor}
+           paperColor={state.paperColor}
+           debossDepth={state.debossDepth}
            width={backW}
            height={backH}
-           position={[0, 0, -paperThickness / 2 - 0.05]} 
-           rotation={[0, Math.PI, 0]} 
+           position={[0, 0, -paperThickness / 2 - 0.05]}
+           rotation={[0, Math.PI, 0]}
         />
 
         {/* --- TOP FLAP --- */}
@@ -83,7 +85,7 @@ const CatalogModel: React.FC<CatalogModelProps> = ({ state }) => {
           position={[0, backH / 2, 0]}
           rotation-x={openFactor.to(o => degToRad(-179 * (1 - o)))}
         >
-           <group position={[0, flapTopH / 2, paperThickness / 2]}> 
+           <group position={[0, flapTopH / 2, paperThickness / 2]}>
                 <mesh>
                     <boxGeometry args={[backW, flapTopH, paperThickness]} />
                     <PaperMaterial color={state.paperColor} />
@@ -144,13 +146,15 @@ const CatalogModel: React.FC<CatalogModelProps> = ({ state }) => {
                             <boxGeometry args={[frontW, frontH, paperThickness]} />
                             <PaperMaterial color={state.paperColor} />
                             <DebugEdges active={state.showDebug} />
-                            
+
                             {/* Front Text - Moved to Outside Face (-Z) and Rotated to face out */}
                             <FoilText
                                 text={state.frontText}
                                 config={state.fontConfig}
                                 foilType={state.foilType}
                                 foilColor={state.foilColor}
+           paperColor={state.paperColor}
+           debossDepth={state.debossDepth}
                                 width={frontW}
                                 height={frontH}
                                 position={[0, 0, -paperThickness / 2 - 0.05]}
@@ -160,7 +164,7 @@ const CatalogModel: React.FC<CatalogModelProps> = ({ state }) => {
 
                         {/* --- BELT SYSTEM --- */}
                          <animated.group
-                            position={[-frontW / 2, 0, 0]} 
+                            position={[-frontW / 2, 0, 0]}
                             rotation-y={openFactor.to(o => degToRad(-90 * (1 - o)))}
                          >
                             <group position={[-6, 0, 0]}>
@@ -169,7 +173,7 @@ const CatalogModel: React.FC<CatalogModelProps> = ({ state }) => {
                                      <PaperMaterial color={state.paperColor} />
                                      <DebugEdges active={state.showDebug} />
                                 </mesh>
-                                
+
                                 <animated.group
                                     position={[-6, 0, 0]}
                                     rotation-y={openFactor.to(o => degToRad(-90 * (1 - o)))}

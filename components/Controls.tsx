@@ -124,6 +124,14 @@ const Controls: React.FC<ControlsProps> = ({ state, setState, isOpen, onClose })
           </div>
         </div>
 
+        <div className="mb-8 border-b pb-6">
+          <label htmlFor="deboss-depth" className="block text-xs font-semibold text-gray-500 mb-2">Deboss impression</label>
+          <input id="deboss-depth" type="range" min="0" max="0.5" step="0.01"
+            value={state.debossDepth} onChange={e => setState(s => ({ ...s, debossDepth: Number(e.target.value) }))}
+            className="w-full accent-black" />
+          <div className="flex justify-between text-xs text-gray-500"><span>Flat</span><span>Deep</span></div>
+        </div>
+
         {/* Global Typography */}
         <div className="mb-8 border-b pb-6">
           <h2 className="text-sm font-bold uppercase tracking-widest text-gray-800 mb-4">Typography</h2>
